@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardVO {
-	private int bno;
+	private Long bno;
 	private String title;
 	private String content;
 	private String writer;

@@ -19,10 +19,6 @@ public class ReplyController {
 	// 등록
 	@PostMapping("/reply")
 	public int insert(@RequestBody ReplyVO vo) {
-		ReplyVO rvo = new ReplyVO();
-		rvo.setBno(1);
-		rvo.setReply("tester");
-		rvo.setReplyer("test");
 		int result = replyMapper.insert(vo);
 		return result;
 	}

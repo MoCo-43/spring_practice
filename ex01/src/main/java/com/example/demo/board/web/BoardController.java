@@ -27,9 +27,6 @@ public class BoardController {
     return "board";
   }
   
-  // 댓글삽입
-
-  
   // Join을 이용한 단건조회
 	@GetMapping("jboardlist")
 	public String jboardlist(Model model) {

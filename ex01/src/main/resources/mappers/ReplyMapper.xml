@@ -6,7 +6,7 @@
 
 <!-- 댓글삽입 -->
 <insert id="insert">
-  <selectKey keyProperty="rno" resultType="int" order="BEFORE">
+  <selectKey keyProperty="rno" resultType="Long" order="BEFORE">
     SELECT seq_reply.nextval FROM dual 
   </selectKey>
 	insert into tbl_reply (

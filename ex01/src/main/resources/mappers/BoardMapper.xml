@@ -52,6 +52,4 @@ LEFT JOIN tbl_reply tr ON tr.bno = tb.bno
 WHERE tb.bno = #{bno}
 </select>
 
-<!-- 댓글삽입 -->
-
 </mapper>

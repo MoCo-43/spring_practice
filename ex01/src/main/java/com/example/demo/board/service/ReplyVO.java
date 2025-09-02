@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReplyVO extends SearchVO{
-	private int rno;
-	private int bno;
+	private Long rno;
+	private Long bno;
 	private String reply;
 	private String replyer;
 	private Date replydate;

@@ -58,7 +58,7 @@
 					<input name="replyer" class="form-control">
 				</div>
 				<div class="col-3">
-					<input name="replyer" type="hidden" class="form-control"
+					<input name="bno" type="hidden" class="form-control"
 						th:value="${board.bno}">
 				</div>
 				<div class="col-3">
@@ -86,6 +86,8 @@ function replyInsert(){
 		const replyer = replyForm.replyer.value;
 		const bno = replyForm.bno.value;
 		const param = {reply, replyer, bno}
+		
+		console.log("reply => " + reply);
 		
 		//등록 요청
 		fetch(url, {
