@@ -43,4 +43,15 @@
   WHERE bno = #{bno}
 </select>
 
+<!-- 게시글_댓글_JOIN-->
+<select id="joinBoardByReplyBno" resultType="map" parameterType="Long">
+SELECT tb.title, tb.content, tb.writer, tb.regdate, tb.updatedate,
+       tr.reply, tr.replyer, tr.replydate, tr.updatedate
+FROM   tbl_board tb
+LEFT JOIN tbl_reply tr ON tr.bno = tb.bno
+WHERE tb.bno = #{bno}
+</select>
+
+<!-- 댓글삽입 -->
+
 </mapper>

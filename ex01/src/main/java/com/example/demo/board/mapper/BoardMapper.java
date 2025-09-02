@@ -17,5 +17,10 @@ public interface BoardMapper {
 	BoardVO selectBoardByBno(Long bno);
 	
 	// 댓글 단건조회
-	List<ReplyVO> selectReplyByBno(Long bno); 
+	List<ReplyVO> selectReplyByBno(Long bno);
+	
+	// 게시글 단건조회 JOIN사용
+	List<BoardVO> joinBoardByReplyBno(Long bno);
+
+	int insert(ReplyVO reply);
 }

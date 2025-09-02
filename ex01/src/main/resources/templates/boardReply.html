@@ -2,52 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+	crossorigin="anonymous">
 <title>Insert title here</title>
 </head>
 <body>
-  <h1 th:text="${board.title}"></h1>
-  <table>
-  <tr>
-    <td>내용</td>
-    <td th:text="${board.content}"></td>
-  </tr>
-  <tr>
-    <td>작성자</td>
-    <td th:text="${board.writer}"></td>
-  </tr>
-  <tr>
-    <td>등록일</td>
-    <td th:text="${board.regdate}"></td>
-  </tr>
-  <tr>
-    <td>업데이트일</td>
-    <td th:text="${board.updatedate}"></td>
-  </tr>
-  </table>
-  
- <!-- 댓글조회 --> 
-  <h2>댓글</h2>
-  <table>
-  <tr>
-    <td>작성자</td>
-    <td th:text="${board.replylist[0].replyer}"></td>
-  </tr>
-  <tr>
-    <td>댓글내용</td>
-    <td th:text="${board.replylist[0].reply}"></td>
-  </tr>
-    <tr>
-    <td>댓글등록일</td>
-    <td th:text="${board.replylist[0].replydate}"></td>
-  </tr>
-    <tr>
-    <td>댓글업데이트일</td>
-    <td th:text="${board.replylist[0].updatedate}"></td>
-  </tr>
-  </table>
+	<h1 th:text="${board.title}"></h1>
+	<table>
+		<tr>
+			<td>내용</td>
+			<td th:text="${board.content}"></td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td th:text="${board.writer}"></td>
+		</tr>
+		<tr>
+			<td>등록일</td>
+			<td th:text="${board.regdate}"></td>
+		</tr>
+		<tr>
+			<td>업데이트일</td>
+			<td th:text="${board.updatedate}"></td>
+		</tr>
+	</table>
 
-<!-- 댓글 등록 -->
+	<!-- 게시글 단건조회 시작 -->
+
+	<!-- 게시글 단건조회 끝 -->
+	<div id="replyList"></div>
+	<!-- 댓글시작 -->
 	<table class="table">
 		<form name="replyForm">
 			<div class="row">
@@ -67,7 +54,8 @@
 			</div>
 		</form>
 	</table>
-  
+	<!-- 댓글 끝 -->
+
 </body>
 <script>
 // 등록함수실행
@@ -103,5 +91,4 @@ function replyInsert(){
 } 
 
 </script>
-
 </html>

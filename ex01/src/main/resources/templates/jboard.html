@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <h1 th:text="${jboard.title}"></h1>
+  <table>
+  <tr>
+    <td>내용</td>
+    <td th:text="${jboard.content}"></td>
+  </tr>
+  <tr>
+    <td>작성자</td>
+    <td th:text="${jboard.writer}"></td>
+  </tr>
+  <tr>
+    <td>등록일</td>
+    <td th:text="${jboard.regdate}"></td>
+  </tr>
+  <tr>
+    <td>업데이트일</td>
+    <td th:text="${jboard.updatedate}"></td>
+  </tr>
+  </table>
+  
+  <h2>댓글</h2>
+  <table>
+  <tr>
+    <td>작성자</td>
+    <td th:text="${jboard.replylist[0].replyer}"></td>
+  </tr>
+  <tr>
+    <td>댓글내용</td>
+    <td th:text="${jboard.replylist[0].reply}"></td>
+  </tr>
+    <tr>
+    <td>댓글등록일</td>
+    <td th:text="${jboard.replylist[0].replydate}"></td>
+  </tr>
+    <tr>
+    <td>댓글업데이트일</td>
+    <td th:text="${jboard.replylist[0].updatedate}"></td>
+  </tr>
+  </table>
+</body>
+</html>

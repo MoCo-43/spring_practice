@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>jboard 실습</h1>
+	<table>
+		<tr>
+		    <th>게시번호</th>
+		    <th>제목</th>
+			<th>내용</th>
+			<th>작성자</th>
+			<th>등록일</th>
+			<th>업데이트일</th>
+		</tr>
+		<tr th:each="jboard, stat : ${jboardlist}">
+		<td th:text="${jboard.bno}"></td>
+		<td><a th:href="@{/jboard(bno=${jboard.bno})}" th:text="${jboard.title}"></a></td>
+		<td th:text="${jboard.content}"></td>
+		<td th:text="${jboard.writer}"></td>
+		<td th:text="${jboard.regdate}"></td>
+		<td th:text="${jboard.updatedate}"></td>
+		</tr>
+	</table>
+
+</body>
+</html>
