@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.emp.mapper.EmpMapper">
+
+<sql id="criteria">
+	<where>
+		<if test="firstName != null">
+			UPPER(FIRST_NAME) LIKE '%' || UPPER(#{firstName})  || '%'
+		</if>
+		<if test="departmentId != null">
+			AND DEPARTMENT_ID = #{departmentId}
+		</if>
+	</where>
+</sql>
+
+<!-- 페이지네이션 -->
+<select id="selectCount" resultType="Long">
+  SELECT COUNT(*) 
+  FROM   EMPLOYEES
+  <include refid="criteria"></include>
+</select>
+
+<!-- 전체조회(페이징, 검색) -->
+<select id="selectEmp" resultType="EmpVO">
+SELECT *
+FROM (
+      SELECT /*+INDEX_DESC (EMPLOYEES EMP_EMAIL_UK)  */ ROWNUM RN, E.*
+      FROM   EMPLOYEES E
+      <include refid="criteria"></include>
+     ) B WHERE RN BETWEEN #{first} AND #{last}
+</select>
+
+<resultMap type="empVO" id="empMap">
+  <association property="deptVO" column="DEPARTMENT_ID" javaType="DeptVO" select="selectDeptById"/>
+</resultMap>
+
+<!-- 부서 단건조회 -->
+<select id="selectDeptById" resultType="deptVO">
+  SELECT DEPARTMENT_ID,
+	 	 DEPARTMENT_NAME,
+		 MANAGER_ID,
+		 LOCATION_ID
+  FROM   DEPARTMENTS
+  WHERE  DEPARTMENT_ID = #{departmentId}
+</select>
+
+<!-- 단건조회 -->
+<select id="selectEmpById" resultMap="empMap" parameterType="Long">
+  SELECT 
+         EMPLOYEE_ID,
+         FIRST_NAME,
+         LAST_NAME,
+         EMAIL,
+         PHONE_NUMBER,
+         HIRE_DATE,
+         JOB_ID,
+         SALARY,
+         COMMISSION_PCT,
+         MANAGER_ID,
+         DEPARTMENT_ID
+  FROM   EMPLOYEES
+  WHERE  EMPLOYEE_ID = #{employeeId}
+</select>
+<!-- 등록 -->
+<insert id="insertEmp" parameterType="EmpVO">
+  INSERT INTO EMPLOYEES (
+    EMPLOYEE_ID,
+    FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE,
+    JOB_ID, SALARY, COMMISSION_PCT, MANAGER_ID, DEPARTMENT_ID
+  ) VALUES (
+    EMPLOYEES_SEQ.NEXTVAL,
+    #{firstName}, #{lastName}, #{email}, #{phoneNumber}, #{hireDate},
+    #{jobId}, #{salary}, #{commissionPct}, #{managerId}, #{departmentId}
+  )
+</insert>
+
+<!-- 수정 -->
+
+<!-- 삭제 -->
+</mapper>
