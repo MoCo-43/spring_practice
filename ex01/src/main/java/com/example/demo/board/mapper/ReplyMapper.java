@@ -17,7 +17,7 @@ public interface ReplyMapper {
 	
 	// 삭제
 	int delete(Long rno);
-	
+
 	// 단건조회
 	ReplyVO read(Long rno);
 	

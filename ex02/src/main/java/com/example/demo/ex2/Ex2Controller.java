@@ -14,23 +14,30 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.ex1.UserVO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "회원관리 API", description = "게임사이트 회원 가입")
 @RequestMapping("/api")
 @RestController  // @Controller + @ResponseBody
 public class Ex2Controller {
-
+	@Tag(name = "회원관리 API")
+	@Operation(summary = "회원조회")
 	// UserVO 단건조회
 	@GetMapping("/rest1")
 	public UserVO rest1() {
 	 return new UserVO("홍길동", 20, new Date(), Arrays.asList("게임","등산"));
 	}
 	
-
+	@Tag(name = "회원관리 API")
+	@Operation(summary = "회원단건조회")
 	// RequestBody없이 진행
 	@GetMapping("/rest2") // json String은 get방식이 안됨  // query String : name=aaa&age=20
 	public UserVO rest2(UserVO userVO) {
 	 return userVO;
 	}
+	
+	
 	// Post방식 단건조회
 	@PostMapping("/rest3") // json String => {"name":"aa" "age":50} VO json STring은 get 방식 X
 	public UserVO rest3(@RequestBody UserVO userVO) {
