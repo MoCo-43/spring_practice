@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta charset="UTF-8">
+<title>register</title>
+</head>
+<body>
+	<form>
+	  <input type="text" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" disabled>
+    </form>
+    [[${_csrf.parameterName}]] 
+    <hr>
+
+	<script th:inline="javascript">
+	
+	let csrfHeaderName = [[${_csrf.headerName}]];
+	let csrfToken = [[${_csrf.token}]];
+	
+	</script>
+
+</body>
+</html>
