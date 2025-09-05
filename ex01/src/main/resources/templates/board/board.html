@@ -8,11 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body layout:fragment="content">
+
 <div class="container">
+
 <!-- 게시글 단건조회 -->
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title"><h1 th:text="${board.title}" /></h5>  
+    <h5 class="card-title"><h1 th:text="${board.title}"></h1></h5>
   <table>
   <tr>
     <td>내용</td>
@@ -30,47 +32,20 @@
     <td>업데이트일</td>
     <td th:text="${board.updatedate}"></td>
   </tr>
+  <tr>
+    <td>첨부파일</td>
+    <td><a th:href="|/filedown/${board.attach}|" th:text="${board.attach}"></a>
+        <img th:src="|/upload/${board.attach}|"></td>
+  </tr>
   </table>
 </div>
 
   
- <!-- 댓글조회 --> 
- <div class="card mb-3">
-  <div class="card-body">
-  <h2>댓글</h2>
-  <table>
-  <tr>
-    <td>작성자</td>
-    <td th:text="${board.replylist[0].replyer}"></td>
-  </tr>
-  <tr>
-    <td>댓글내용</td>
-    <td th:text="${board.replylist[0].reply}"></td>
-  </tr>
-    <tr>
-    <td>댓글등록일</td>
-    <td th:text="${board.replylist[0].replydate}"></td>
-  </tr>
-    <tr>
-    <td>댓글업데이트일</td>
-    <td th:text="${board.replylist[0].updatedate}"></td>
-  </tr>
-  </table>
-</div>
-
 <!-- 댓글조회 -->
 <div class="card mb-3">
 <div class="card-body">
 <h5  class="card-title">댓글목록</h5>
   <div class="replyList">
-    <div class="row border">
-      <div class="col-lg-2 text-primary"><p th:text="${board.replylist[0].replyer}" /></div>
-      <div class="col-lg-6"><p th:text="${board.replylist[0].reply}" /></div>
-      <div class="col-lg-4"><button class="btn btn-primary btnReplyUpdateForm">수정</button>
-                            <button class="btn btn-danger btnReplyDelete">삭제</button>
-      </div>
-  </div>
-
 </div>
 
 </div>
@@ -96,9 +71,12 @@
 			</div>
 		</form>
 	</table>
-</div>  
+</div> 
+ 
 
 <script>
+const url = "/reply";
+
 // 등록함수실행
 replyInsert();
 // 댓글태그실행
@@ -110,7 +88,7 @@ replyDelete();
 댓글 삭제 ajax 호출
 ---------------------------------------*/
 function replyDelete(){
-	document.querySelector(".replys").addEventListener("click", function(){
+	document.querySelector(".replyList").addEventListener("click", function(){
 		//삭제버튼이면
 		if(event.target.classList.contains("btnReplyDelete")) {
 			if(! confirm("삭제할까요")){
@@ -157,7 +135,7 @@ function replyMake(item) {
 	return `
 	<div class="row border">
     <div class="col-lg-2 text-primary">${item.replyer}</div>
-    <div class="col-lg-6"><p th:text=${item.reply} /></div>
+    <div class="col-lg-6">${item.reply}</div>
     <div class="col-lg-4"><button type="button" data-rno="${item.rno}" class="btn btn-primary btnReplyUpdateForm">수정</button>
                           <button type="button" data-rno="${item.rno}" class="btn btn-danger btnReplyDelete">삭제</button>
     </div>
@@ -168,8 +146,6 @@ function replyMake(item) {
 /*-------------------------------------
 등록 버튼 이벤트 지정
 ---------------------------------------*/	
-const url = "/reply";
-
 function replyInsert(){
 	document.querySelector(".btnReplyInsert").addEventListener("click", function(){
 

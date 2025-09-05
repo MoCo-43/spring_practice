@@ -15,6 +15,11 @@ public interface BoardService {
 	
 	// 댓글 단건조회
 	List<ReplyVO> selectReplyByBno(Long bno);
+
+	// 게시글insert
+	int insert(BoardVO boardVO);
 	
+	// 삭제
+	int deleteBoard(Long bno);
 	
 }

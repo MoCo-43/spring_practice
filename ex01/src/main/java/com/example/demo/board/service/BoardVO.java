@@ -19,6 +19,7 @@ public class BoardVO {
 	private String writer;
 	private Date regdate;
 	private Date updatedate;
+	private String attach;
 
 	// 복수댓글 조회
 	private List<ReplyVO> Replylist;

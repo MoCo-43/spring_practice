@@ -3,11 +3,13 @@ package com.example.demo.board.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.board.mapper.BoardMapper;
 import com.example.demo.board.service.BoardVO;
 import com.example.demo.board.service.ReplyVO;
 import com.example.demo.board.web.BoardService;
+import com.example.demo.common.aop.PrintExecutionTime;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +27,7 @@ public class BoardServiceImpl implements BoardService{
 
 	// 게시글 단건조회
 	@Override
+	@PrintExecutionTime  // AOP를 사용한 Annotation을 넣음
 	public BoardVO selectBoardByBno(Long bno) {
 		return boardMapper.selectBoardByBno(bno);
 	}
@@ -35,4 +38,23 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.selectReplyByBno(bno);
 	}
 
+	// insert
+	@Override
+	public int insert(BoardVO boardVO) {
+		return boardMapper.insert(boardVO);
+	}
+
+	// 댓글 삭제
+	@Transactional
+	@Override
+	public int deleteBoard(Long bno) {
+		// 댓글 삭제
+		
+		// 첨부파일 삭제(레코드 삭제) => 물리적인 파일 삭제
+		
+		// 게시글 삭제
+		return 0;
+	}
+	
+	
 }

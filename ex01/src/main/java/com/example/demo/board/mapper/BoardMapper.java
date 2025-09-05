@@ -22,4 +22,6 @@ public interface BoardMapper {
 	// 게시글 단건조회 JOIN사용
 	List<BoardVO> joinBoardByReplyBno(Long bno);
 
+	// insert 게시글
+	int insert(BoardVO boardVO);
 }

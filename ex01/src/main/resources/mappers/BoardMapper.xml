@@ -26,12 +26,7 @@
 
 <!-- 게시글 단건조회 -->
 <select id="selectBoardByBno" resultMap="boardMap" parameterType="Long">
-  SELECT bno,
-         title,
-         content,
-         writer,
-         regdate,
-         updatedate
+  SELECT *
   FROM   tbl_board
   WHERE  bno = #{bno}
 </select>
@@ -52,4 +47,21 @@ LEFT JOIN tbl_reply tr ON tr.bno = tb.bno
 WHERE tb.bno = #{bno}
 </select>
 
+<!-- insert: 등록 -->
+<insert id="insert" parameterType="boardVO">
+  INSERT INTO tbl_board (
+      bno,
+      title,
+      content,
+      writer,
+      attach
+  )
+  VALUES (
+      seq_board.nextval,
+      #{title},
+      #{content},
+      #{writer},
+      #{attach}
+  )
+</insert>
 </mapper>
