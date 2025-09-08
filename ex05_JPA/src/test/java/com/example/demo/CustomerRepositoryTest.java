@@ -93,19 +93,4 @@ public class CustomerRepositoryTest {
 		assertEquals("04411", customer.getAddress().getZipcode());
 	}
 	
-	
-//	@Test
-	@Transactional
-	void ManyToOneTest() {
-
-	    // when (실행)
-	    List<Customer> customer = customerRepository.findAllFetchJoin();
-	    // log.info(customer.getFirstName());
-	    customer.forEach(cust -> cust.getAddress().forEach(
-	        addr -> log.info(addr.getZipcode())
-	    ));
-
-	    // then (검증)
-	    assertEquals("04411", customer.get(0).getAddress().get().getZipcode());
-	}
 }
