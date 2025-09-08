@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,15 +10,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.demo.domain.Address;
 import com.example.demo.domain.Customer;
+import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.CustomerRepository;
 
+import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @SpringBootTest
 public class CustomerRepositoryTest {
 
 	@Autowired 
 	CustomerRepository customerRepository;
 	
+	@Autowired
+	AddressRepository addressRepository;
 	//@Test
 	public void list() {
 		List<Customer> list = customerRepository.findAll();
@@ -62,8 +73,39 @@ public class CustomerRepositoryTest {
 		customerRepository.findByNameLike("Ki%").forEach(System.out::println);
 	}
 	
-	@Test
+//	@Test
 	public void findPhone() {
 		customerRepository.findByPhone("1").forEach(System.out::println);
+	}
+	
+	@Test
+	public void oneToOneTest() {
+		Address	addressEntity =	Address.builder().zipcode("04411").address("대구").build();
+		addressRepository.save(addressEntity);
+		Customer customerentity = Customer.builder().name("nvidia").phone("1111-2222").address(addressEntity).build();
+		customerRepository.save(customerentity);
+		
+		//when(실행)
+		Customer customer = customerRepository.findById(1L).get();
+		log.info(customer.getName()+":"+customer.getAddress().getZipcode());
+		
+		//then(검증)
+		assertEquals("04411", customer.getAddress().getZipcode());
+	}
+	
+	
+//	@Test
+	@Transactional
+	void ManyToOneTest() {
+
+	    // when (실행)
+	    List<Customer> customer = customerRepository.findAllFetchJoin();
+	    // log.info(customer.getFirstName());
+	    customer.forEach(cust -> cust.getAddress().forEach(
+	        addr -> log.info(addr.getZipcode())
+	    ));
+
+	    // then (검증)
+	    assertEquals("04411", customer.get(0).getAddress().get().getZipcode());
 	}
 }
