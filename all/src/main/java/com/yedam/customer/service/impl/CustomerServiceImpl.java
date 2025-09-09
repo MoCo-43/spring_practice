@@ -13,7 +13,7 @@ public class CustomerServiceImpl implements CustomerService{
 	@Resource(name="customerDAO") CustomerDAO customerDAO;
 
 	@Override
-	public CustomerVO selectOne(Long id) {
+	public CustomerVO selectCustomerDetail(Long id) {
 		return customerDAO.selectOne(id);
 	}
 	

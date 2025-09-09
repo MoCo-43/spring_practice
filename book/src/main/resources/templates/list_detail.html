@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>BOOK_DETAIL</title>
+</head>
+
+<!-- 도서목록 -->
+<div class="container">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><h1 th:text="${detail.bookName}"></h1></h5>
+  <table>
+  <tr>
+    <td>도서번호</td>
+    <td th:text="${detail.bookNo}"></td>
+  </tr>
+  <tr>
+    <td>도서명</td>
+    <td th:text="${detail.bookName}"></td>
+  </tr>
+  <tr>
+    <td>도서표지</td>
+    <td th:text="${detail.bookCoverimg}"></td>
+  </tr>
+  <tr>
+    <td>출판일자</td>
+    <td th:text="${detail.bookDate}"></td>
+  </tr>
+   <tr>
+    <td>금액</td>
+    <td th:text="${detail.bookPrice}"></td>
+  </tr>
+  <tr>
+    <td>출판사</td>
+    <td th:text="${detail.bookPublisher}"></td>
+  </tr>
+  <tr>
+    <td>도서소개</td>
+    <td th:text="${detail.bookInfo}"></td>
+  </tr>
+  </table>
+</div>
+</body>
+</html>

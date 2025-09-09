@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yedam.service.impl.BookMapper">
+
+<!-- 도서목록 조회 -->
+<select id="selectAllBook" resultType="BookVO">
+  SELECT *
+  FROM   book_tbl_06
+</select>
+
+<!-- 대여현황 조회 -->
+<select id="selectRentStatus" resultType="RentVO">
+  SELECT *
+  FROM rent_tbl
+</select>
+
+<!-- 도서상세 조회 -->
+<select id="selectBookByNo" resultType="BookVO">
+  SELECT *
+  FROM   book_tbl_06
+  WHERE  book_no = #{bookNo}
+</select>
+
+<!-- 도서목록 수정 -->
+<update id="updateBook" parameterType="Long">
+  UPDATE BOOK_TBL_06
+  SET    book_no
+         book_name
+         book_coverimg
+         book_date
+         book_price
+         book_publisher
+         book_info
+  WHERE  book_no = #{bookNo}
+</update>
+
+<!-- 도서 등록 -->
+<insert id="insertBook" parameterType="BookVO">
+  INSERT INTO book_tbl_06 (book_no, book_name, book_coverimg, book_date, book_price, book_publisher, book_info)
+  VALUES (seq_book.nextVal, #{bookName}, #{bookCoverimg}, #{bookDate}, #{bookPrice}, #{bookPublisher}, #{bookInfo})
+</insert>
+
+</mapper>

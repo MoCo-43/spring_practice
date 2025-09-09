@@ -3,7 +3,9 @@
 
 <mapper namespace="CustomerDAO">
 
-  <select id="selectOne" resultType="com.yedam.customer.service.CustomerVO">
-    SELECT * FROM customer WHERE id = #{id}
+  <select id="selectOne" resultType="CustomerVO">
+    SELECT * 
+    FROM customer 
+    WHERE id = #{id}
   </select>
 </mapper>

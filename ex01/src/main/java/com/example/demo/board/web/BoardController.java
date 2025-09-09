@@ -25,6 +25,7 @@ import com.example.demo.board.service.BoardVO;
 
 @Controller
 public class BoardController {
+	
   @Autowired
 //  BoardMapper boardMapper;
   BoardService boardService;

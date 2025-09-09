@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>BOOK_PRACTICE</title>
+</head>
+<div class="container">
+	<H1>Book_Practice</H1>
+	<!-- 전체 조회 -->
+	<div class="card">
+		<div class="card-body">
+			<table>
+				<tr>
+					<th>도서번호</th>
+					<th>도서명</th>
+					<th>대여총계</th>
+					<th>대여횟수</th>
+				</tr>
+				<tr th:each="list : ${list}">
+					<td th:text="${list.bookNo}"></td>
+					<td th:text="${list.bookName}"></td>
+					<td th:text="${list.bookCoverimg}"></td>
+					<td th:text="${list.bookDate}"></td>
+					<td th:text="${list.bookPrice}"></td>
+					<td th:text="${list.bookPublisher}"></td>
+					<td th:text="${list.bookInfo}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
