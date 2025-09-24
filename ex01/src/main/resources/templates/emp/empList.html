@@ -1,95 +1,139 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}"
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
 >
-<head>
-<meta charset="UTF-8">
-<title>사원목록</title>
-<style>
-  .salaryed { color : red;}
-  .salarybold { font-weight: bold;}
-</style>
-	<script th:inline="javascript">
-		function gopage(p){
-			frmSearch.page.value = p;
-			frmSearch.submit();
-			//location.href= 'empList?page=' + p
-		}
-		function init(){
-			frmSearch.departmentId.value=""
-			frmSearch.firstName.value=""
-			frmSearch.managerId.value=""
-		}
-	</script>	
-</head>
-<body layout:fragment="content">
-	<h1>사원목록</h1>
-	    <!--  검색 폼 시작 -->
-	<form name="frmSearch" th:object="${empVO}" action="emplist">
-		<input type="hidden" name="page">
-		<select name="departmentId" th:value="*{departmentId}">
-			<option value="">선택
-			<option value="10" th:selected="*{departmentId}=='10'">Administration
-			<option value="20" th:selected="*{departmentId}=='20'">	Marketing
-			<option value="50" th:selected="*{departmentId}=='50'">	Shipping
-			<option value="60" th:selected="*{departmentId}=='60'">	IT
-			<option value="80" th:selected="*{departmentId}=='80'">	Sales
-			<option value="90" th:selected="*{departmentId}=='90'">	Executive
-			<option value="110" th:selected="*{departmentId}=='100'">Accounting
-		</select>	
-		firstName<input name="firstName" th:value="*{firstName}">
-		ManagerId<input name="managerId" th:value="*{managerId}">
-		<button type="button" onclick="gopage(1)">검색</button>
-		<button type="button" onclick="init()">초기화</button>
-	</form>
-    
-    <!--  검색 폼 끝 -->
-	
-	<!-- th 태그 없이 사용 -->
-	전체건수 : [[${#lists.size(empList)}]]  <br>
-	<table>
-		<tr>
-		    <th>No(Index)</th>
-		    <th>Count</th>
-			<th>employee_id</th>
-			<th>first_name</th>
-			<th>last_name</th>
-			<th>salary</th>
-			<th>hire_date</th>
-		</tr>
-		<tr th:each="emp, stat : ${empList}">
-		    <td th:text="${stat.index}"></td>
-		    <td th:text="${stat.count}"></td>
-			<td th:text="${emp.employeeId}"></td>
-			<td><a th:href="@{/emp(employeeId=${emp.employeeId})}" th:text="${emp.firstName}"></a></td>
-			<td th:text="${emp.lastName}"></td>
-			<td class="salarybold"
-			 th:text="${#numbers.formatCurrency(emp.salary)}"
-			 th:classappend="${emp.salary>10000 ? 'salaryed': _ }">
-			 [[${emp.salary}]] <button th:if="${emp.salary < 10000}"></button>
-			</td>
-			<td th:text="${#dates.format(emp.hireDate, 'yyyy-MM')}"></td>
-		</tr>
-	</table>
-    <!-- 페이징 시작 -->
-	<nav aria-label="...">
-	  <ul class="pagination">
-	    <li class="page-item" th:if="${paging.startPage} > 1 ">
-	        <a class="page-link" th:href="|javascript:gopage(${paging.startPage-1})|">Previous</a></li>
+  <head>
+    <meta charset="UTF-8" />
+    <title>사원목록</title>
+    <style>
+      .salaryed {
+        color: red;
+      }
+      .salarybold {
+        font-weight: bold;
+      }
+    </style>
+    <script th:inline="javascript">
+      function gopage(p) {
+        frmSearch.page.value = p;
+        frmSearch.submit();
+        //location.href= 'empList?page=' + p
+      }
+      function init() {
+        frmSearch.departmentId.value = "";
+        frmSearch.firstName.value = "";
+        frmSearch.managerId.value = "";
+      }
+    </script>
+  </head>
+  <body layout:fragment="content">
+    <h1>사원목록</h1>
+    <!--  검색 폼 시작 -->
+    <form name="frmSearch" th:object="${empVO}" action="emplist">
+      <input type="hidden" name="page" />
+      <select name="departmentId" th:value="*{departmentId}">
+        <option value="">선택</option>
+        <option value="10" th:selected="*{departmentId}=='10'">
+          Administration
+        </option>
+        <option value="20" th:selected="*{departmentId}=='20'">
+          Marketing
+        </option>
+        <option value="50" th:selected="*{departmentId}=='50'">Shipping</option>
+        <option value="60" th:selected="*{departmentId}=='60'">IT</option>
+        <option value="80" th:selected="*{departmentId}=='80'">Sales</option>
+        <option value="90" th:selected="*{departmentId}=='90'">
+          Executive
+        </option>
+        <option value="110" th:selected="*{departmentId}=='100'">
+          Accounting
+        </option>
+      </select>
 
-	    <li th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}" 
-	        class="page-item" 
-	        th:addclass="${num} == ${paging.page} ? active">
-	        <a class="page-link" th:href="|javascript:gopage(${num})|"  th:text="${num}">2</a></li>
-	    
-	    <li class="page-item" th:classappend="${paging.endPage} <= ${paging.lastPage} ? disabled">
-	        <a class="page-link" th:href="|javascript:gopage(${paging.endPage+1})|">Next</a></li>
-	  </ul>
-	</nav>
-	<!-- 페이징 종료 -->
-<script th:inline="javascript">
-  let list = [[${empList}]];
-</script>
-</body>
+      firstName<input name="firstName" th:value="*{firstName}" />
+      ManagerId<input name="managerId" th:value="*{managerId}" />
+      <button type="button" onclick="gopage(1)">검색</button>
+      <button type="button" onclick="init()">초기화</button>
+    </form>
+
+    <!--  검색 폼 끝 -->
+
+    <!-- th 태그 없이 사용 -->
+    전체건수 : [[${#lists.size(empList)}]] <br />
+
+    <button type="button" onclick="location.href='report'">pdf출력</button>
+    <table>
+      <tr>
+        <th>No(Index)</th>
+        <th>Count</th>
+        <th>employee_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>salary</th>
+        <th>hire_date</th>
+      </tr>
+      <tr th:each="emp, stat : ${empList}">
+        <td th:text="${stat.index}"></td>
+        <td th:text="${stat.count}"></td>
+        <td th:text="${emp.employeeId}"></td>
+        <td>
+          <a
+            th:href="@{/emp(employeeId=${emp.employeeId})}"
+            th:text="${emp.firstName}"
+          ></a>
+        </td>
+        <td th:text="${emp.lastName}"></td>
+        <td
+          class="salarybold"
+          th:text="${#numbers.formatCurrency(emp.salary)}"
+          th:classappend="${emp.salary>10000 ? 'salaryed': _ }"
+        >
+          [[${emp.salary}]] <button th:if="${emp.salary < 10000}"></button>
+        </td>
+        <td th:text="${#dates.format(emp.hireDate, 'yyyy-MM')}"></td>
+      </tr>
+    </table>
+    <!-- 페이징 시작 -->
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item" th:if="${paging.startPage} > 1 ">
+          <a
+            class="page-link"
+            th:href="|javascript:gopage(${paging.startPage-1})|"
+            >Previous</a
+          >
+        </li>
+
+        <li
+          th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+          class="page-item"
+          th:addclass="${num} == ${paging.page} ? active"
+        >
+          <a
+            class="page-link"
+            th:href="|javascript:gopage(${num})|"
+            th:text="${num}"
+            >2</a
+          >
+        </li>
+
+        <li
+          class="page-item"
+          th:classappend="${paging.endPage} <= ${paging.lastPage} ? disabled"
+        >
+          <a
+            class="page-link"
+            th:href="|javascript:gopage(${paging.endPage+1})|"
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <!-- 페이징 종료 -->
+    <script th:inline="javascript">
+      let list = [[${empList}]];
+    </script>
+  </body>
 </html>
